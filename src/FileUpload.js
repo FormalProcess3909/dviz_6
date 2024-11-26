@@ -43,18 +43,16 @@ class FileUpload extends Component {
       if (Object.keys(obj).length && lines[i].trim()) {
         const parsedObj = {
           Date:new Date(obj.Date),
-          Company: obj.Company,
-          Open: parseFloat(obj.Open),
-          High: parseFloat(obj.High),
-          Low: parseFloat(obj.Low),
-          Close: parseFloat(obj.Close),
-          AdjClose: parseFloat(obj["Adj Close"]),
-          Volume: parseInt(obj.Volume, 10),
+          GPT4: parseInt(obj["GPT-4"]),
+          Gemini: parseInt(obj.Gemini),
+          PaLM2: parseInt(obj["PaLM-2"]),
+          Claude: parseInt(obj.Claude),
+          LLaMA31: parseFloat(obj["LLaMA-3.1"]),
         };
         result.push(parsedObj);
       }
     }
-
+    console.log("Here is the upload", result);
     return result;
   };
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as d3 from "d3";
 
 class FileUpload extends Component {
   constructor(props) {
@@ -26,35 +27,40 @@ class FileUpload extends Component {
   };
 
   csvToJson = (csv) => {
-    const lines = csv.split("\n");  // Split by new line to get rows
-    const headers = lines[0].split(","); // Split first row to get headers
+    const lines = csv.split("\n"); // Split by new line to get rows
+    const headers = lines[0].split(","); // Get headers
     const result = [];
-
+  
+    const parseDate = d3.timeParse("%Y-%m-%d"); // Correct date format
+  
     for (let i = 1; i < lines.length; i++) {
       const currentLine = lines[i].split(","); // Split each line by comma
       const obj = {};
-
+  
       // Map each column value to the corresponding header
       headers.forEach((header, index) => {
-        obj[header.trim()] = currentLine[index]?.trim(); // Trim to remove spaces
+        obj[header.trim()] = currentLine[index]?.trim(); // Trim to clean data
       });
-
-      // Add object to result if it's not an empty row
-      if (Object.keys(obj).length && lines[i].trim()) {
-        const parsedObj = {
-          Date:new Date(obj.Date),
-          GPT4: parseInt(obj["GPT-4"]),
-          Gemini: parseInt(obj.Gemini),
-          PaLM2: parseInt(obj["PaLM-2"]),
-          Claude: parseInt(obj.Claude),
-          LLaMA31: parseFloat(obj["LLaMA-3.1"]),
-        };
-        result.push(parsedObj);
-      }
+  
+      const rawDate = obj.Date?.trim(); // Safely trim raw date
+      const parsedDate = parseDate(rawDate);
+  
+      // Add object to result
+      const parsedObj = {
+        Date: parsedDate, // Use the parsed date explicitly
+        "GPT-4": parseInt(obj["GPT-4"]),
+        Gemini: parseInt(obj.Gemini),
+        "PaLM-2": parseInt(obj["PaLM-2"]),
+        Claude: parseInt(obj.Claude),
+        "LLaMA-3.1": parseFloat(obj["LLaMA-3.1"]),
+      };
+  
+      result.push(parsedObj);
     }
-    console.log("Here is the upload", result);
+  
     return result;
   };
+  
 
   render() {
     return (

@@ -6,38 +6,9 @@
 	padding-top: 20px;
 }
 
-.line-path-open {
-	stroke: #b2df8a;
-	stroke-width: 2;
-	fill: none;
-  }
-  
-  .line-path-close {
-	stroke: #e41a1c;
-	stroke-width: 2;
-	fill: none;
-  }
-  
-  .circle-open {
-	fill: #b2df8a;
-  }
-  
-  .circle-close {
-	fill: #e41a1c;
-  }
-
-  .tooltip {
-	position: absolute;
-	background-color: rgba(50, 50, 50, 0.9); 
-	color: #fff; 
-	border-radius: 5px; 
-	padding: 8px 12px; 
-	font-size: 12px; 
-	pointer-events: none; 
-	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
-	transition: opacity 0.2s ease-in-out; 
-	opacity: 0; 
-	z-index: 10; 
-  }
-  
-  
+  #tooltip {
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+}
